@@ -1,32 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-card width="400" class="mx-auto mt-5">
+      <v-card-title>
+        <h1 class="display-1">Login</h1>
+      </v-card-title>
+      <v-card-text>
+        <v-form>
+          <v-text-field label="Username" prepend-icon="mdi-account-circle" v-model="userName"></v-text-field>
+          <v-text-field
+            label="Password"
+            :type="showPassword ? 'text': 'password'"
+            prepend-icon="mdi-lock"
+            :append-icon="showPassword ? 'mdi-eye' :'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
+            v-model="password"
+          ></v-text-field>
+        </v-form>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-btn class="success" @click="sayHi">Register</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn class="info">Login</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: "App",
 
-#nav {
-  padding: 30px;
+  components: {},
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  data: () => ({
+    userName: null,
+    password: null,
+    showPassword: false
+    //
+  }),
+  methods: {
+    sayHi() {
+      alert(`${this.userName},${this.password}`);
     }
   }
-}
-</style>
+};
+</script>
