@@ -14,14 +14,77 @@
       <v-col>table-2</v-col>
     </v-row>
     <v-row>
-      <v-col cols="8">col-1</v-col>
+      <v-col cols="12" md="6">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="6">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+      </v-col>
+      <v-col>table-2</v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="6">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+      </v-col>
+      <v-col>table-2</v-col>
+    </v-row>
+    <v-row id="below-the-fold" v-intersect="showMoreContent">
+      <v-col cols="8">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+      </v-col>
       <v-col cols="2">col-2</v-col>
       <v-col cols="1">col-3</v-col>
       <v-col cols="1">col-4</v-col>
     </v-row>
+    <v-row v-if="loadNewContent" id="more-content">
+      <v-col cols="8">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+      </v-col>
+      <v-col cols="4">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+          @click:row="selectRow"
+        ></v-data-table>
+      </v-col>
+    </v-row>
     <v-snackbar v-model="snackbar" :left="$vuetify.breakpoint.lgAndUp">
       You have selected {{ currentItem }}
-      <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+      <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
     </v-snackbar>
   </v-container>
 </template>
@@ -127,13 +190,17 @@ export default {
           protein: 7,
           iron: "6%"
         }
-      ]
+      ],
+      loadNewContent: false
     };
   },
   methods: {
     selectRow(event) {
       this.snackbar = true;
       this.currentItem = event.name;
+    },
+    showMoreContent(entries) {
+      this.loadNewContent = entries[0].isIntersecting;
     }
   }
 };
