@@ -2,7 +2,7 @@
   <v-container>
     <h1>Dashboard</h1>
     <v-row>
-      <v-col>
+      <v-col cols="12" md="6">
         <v-data-table
           :headers="headers"
           :items="desserts"
@@ -19,7 +19,7 @@
       <v-col cols="1">col-3</v-col>
       <v-col cols="1">col-4</v-col>
     </v-row>
-    <v-snackbar v-model="snackbar">
+    <v-snackbar v-model="snackbar" :left="$vuetify.breakpoint.lgAndUp">
       You have selected {{ currentItem }}
       <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
     </v-snackbar>
